@@ -18,6 +18,7 @@ import org.apache.commons.mail.EmailException;
 import play.Configuration;
 import play.Logger;
 import play.i18n.Messages;
+import play.mvc.Http.Request;
 import play.mvc.Result;
 import controllers.Application;
 

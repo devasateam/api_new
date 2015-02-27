@@ -6,27 +6,20 @@ import play.mvc.Security;
 
 import com.accounts.service.BrandService;
 import com.accounts.service.impl.BrandServiceImpl;
+import com.onlifli.extractor.BrandExtractor;
 
 @Security.Authenticated(Secured.class)
 public class BrandController extends Application {
 	private static BrandService brandService = new BrandServiceImpl();
 
-	public static Result saveBrand(String name, String desc) {
-		Brand brand = new Brand();
-		brand.setName(name);
-		brand.setDescription(desc);
+	public static Result saveBrand() {
 		
-		
-		
+		Brand brand = BrandExtractor.extract(null);
 		brand = brandService.saveBrand(brand);
 		return jsonResponse(brand, 200);
 	}
-	private static Brand extractBrand(){
-		
-	}
-	
 
-	public static Result getAttributes() {
+	public static Result getBrands() {
 		return jsonResponse(brandService.getBrands(), 200);
 	}
 }

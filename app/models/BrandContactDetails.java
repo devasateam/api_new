@@ -4,13 +4,12 @@ import java.util.List;
 
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
-import scalaz.std.string;
 
 public class BrandContactDetails {
 	@Id
 	@ObjectId
 	private String id;
-	private string addressline1;
+	private String addressline1;
 	private String addressline2;
 	private String state;
 	private String city;
@@ -23,10 +22,10 @@ public class BrandContactDetails {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public string getAddressline1() {
+	public String getAddressline1() {
 		return addressline1;
 	}
-	public void setAddressline1(string addressline1) {
+	public void setAddressline1(String addressline1) {
 		this.addressline1 = addressline1;
 	}
 	public String getAddressline2() {

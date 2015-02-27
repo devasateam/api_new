@@ -43,4 +43,12 @@ public class Brand {
 		this.description = description;
 	}
 
+	public BrandContactDetails getBrandContactDetails() {
+		return brandContactDetails;
+	}
+
+	public void setBrandContactDetails(BrandContactDetails brandContactDetails) {
+		this.brandContactDetails = brandContactDetails;
+	}
+
 }
