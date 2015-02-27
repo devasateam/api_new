@@ -1,57 +1,46 @@
 package models;
 
-import java.util.*;
-
-import play.data.validation.Constraints.Required;
-import play.modules.mongodb.jackson.MongoDB;
-import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
+import play.data.validation.Constraints.Required;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import com.mongodb.BasicDBObject;
-
-import javax.persistence.*;
-
+/**
+ * @Author Pramod Email:sendpramod@gmail.com
+ */
 public class Brand {
-
 	@Id
 	@ObjectId
-	public String id;
+	private String id;
 
 	@Required
-	public String name;
+	private String name;
 
-	public String details;
+	private String description;
+	
+	private BrandContactDetails brandContactDetails;
 
-	private static JacksonDBCollection<Brand, String> coll = MongoDB
-			.getCollection("Brands", Brand.class, String.class);
-
-	public Brand() {
-
+	public String getId() {
+		return id;
 	}
 
-	
-	public static List<Brand> all() {
-		return Brand.coll.find().toArray();
-	}
-	
-	
-
-	public static void create(Brand brand) {
-		Brand.coll.save(brand);
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	
-	public static void delete(String id) {
-		Brand product = Brand.coll.findOneById(id);
-		if (product != null)
-			Brand.coll.remove(product);
+	public String getName() {
+		return name;
 	}
 
-	
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
