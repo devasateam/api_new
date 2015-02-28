@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Token;
-import models.TypeToken;
 import models.User;
 import models.account.utils.AppException;
 import models.account.utils.Mail;
@@ -17,6 +16,9 @@ import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Result;
+
+import com.ecommerce.model.dao.TokenDao;
+
 import controllers.Application;
 
 /**
@@ -60,14 +62,14 @@ public class Reset extends Application {
 		Logger.debug("Sending password reset link to user " + user);
 
 		try {
-			Token.sendMailResetPassword(user);
+			TokenDao.sendMailResetPassword(user);
 			return jsonResponse(
 					Messages.get("account.settings.email.successful"), 200);
 		} catch (MalformedURLException e) {
 			Logger.error("Cannot validate URL", e);
 			flash("error", Messages.get("error.technical"));
 		}
-		return jsonResponse(Messages.get("error.expiredmaillink"), 200);
+		return jsonResponse(Messages.get("error.expiredmaillink"), 400);
 	}
 
 	/**
@@ -92,21 +94,22 @@ public class Reset extends Application {
 		if (token == null) {
 			flash("error", Messages.get("error.technical"));
 
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
-
-		Token resetToken = Token.findByTokenAndType(token,TypeToken.password);
+		System.out.println(token);
+		Token resetToken = TokenDao.findByTokenAndType(token,"password");
+		System.out.println(resetToken);
 		if (resetToken == null) {
 			flash("error", Messages.get("error.technical"));
 
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
 
 		if (resetToken.isExpired()) {
-			resetToken.delete(resetToken);
+			TokenDao.delete(resetToken);
 			flash("error", Messages.get("error.expiredresetlink"));
 
-			return jsonResponse(Messages.get("error.expiredmaillink"), 200);
+			return jsonResponse(Messages.get("error.expiredmaillink"),400);
 		}
 
 		return jsonResponse(Messages.get("account.settings.email.successful"),
@@ -118,25 +121,21 @@ public class Reset extends Application {
 	 * @throws IOException 
 	 */
 	public static Result runReset(String token, String password) throws IOException {
-		// Map<String, String[]> parameters =
-		// request().body().asFormUrlEncoded();
-		// String token = parameters.get("token")[0];
-		// String password = parameters.get("password")[0];
 		if (token == null) {
 			flash("error", Messages.get("signup.valid.password"));
 			return jsonResponse(Messages.get("signup.valid.password"), 200);
 		}
 
 		try {
-			Token resetToken = Token.findByTokenAndType(token,
-					TypeToken.password);
+			Token resetToken = TokenDao.findByTokenAndType(token,
+					"password");
 			if (resetToken == null) {
 				flash("error", Messages.get("error.technical"));
 				return jsonResponse(Messages.get("error.expiredmaillink"), 200);
 			}
 
 			if (resetToken.isExpired()) {
-				resetToken.delete(resetToken);
+				TokenDao.delete(resetToken);
 				flash("error", Messages.get("error.expiredresetlink"));
 				return jsonResponse(Messages.get("error.expiredmaillink"), 200);
 			}
@@ -157,7 +156,7 @@ public class Reset extends Application {
 			return jsonResponse(Messages.get("resetpassword.success"), 200);
 		} catch (AppException e) {
 			flash("error", Messages.get("error.technical"));
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
 
 	}

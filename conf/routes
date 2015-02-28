@@ -7,6 +7,7 @@ GET     /     						controllers.Assets.at(path="/public", file="signin.html")
 GET     /dashboard     				controllers.Assets.at(path="/public", file="dashboard.html")
 GET     /resetpassword				controllers.Assets.at(path="/public", file="resetpassword.html")
 
+GET 	/authcheck					controllers.AuthenticationController.authCheck()
 #Login page will return you Dash Board Json if Success else status code and message
 POST    /login                      controllers.AuthenticationController.authenticate(email:String,password:String)
 
@@ -23,7 +24,7 @@ GET     /confirm/:confirmToken      controllers.account.Signup.confirm(confirmTo
 POST    /reset			            controllers.account.Reset.runReset(token:String,password:String)
 
 # Resets the password using the email.
-GET     /reset/:token               controllers.account.Reset.reset(token:String)
+GET     /reset/:token            controllers.account.Reset.reset(token:String)
 POST    /askresetpassword		 controllers.account.Reset.runAsk(email:String)
 
 
@@ -36,6 +37,8 @@ GET    	/brands                	controllers.BrandController.getBrands()
 #Add Brand providing all the params
 GET   /addbrand			               controllers.BrandController.saveBrand()
 POST  /saveBrandImage	               controllers.BrandController.saveImage(fileName:String)
+
+POST /saveMultipartBrand				controllers.BrandController.saveMultipartBrand()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
