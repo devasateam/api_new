@@ -33,12 +33,12 @@ public class TokenDao {
 	private static Token getNewToken(User user, String type, String email) {
 		Logger.info(user + "-------" + type + "-----------" + email);
 		Token token = new Token();
-		token.token = UUID.randomUUID().toString();
-		token.userId = user.getId();
-		token.type = type;
-		token.email = user.email;
+		token.setToken(UUID.randomUUID().toString());
+		token.setEmail(email);
+		token.setType(type);
+		token.setUserId(user.getId());
 		Date date = new Date();
-		token.dateCreation = date.getTime();
+		token.setDateCreation(date.getTime());
 		tokenCollection.save(token);
 		return token;
 	}
@@ -64,15 +64,15 @@ public class TokenDao {
 		String message = null;
 		String toMail = null;
 
-		URL url = new URL("http://" + externalServer + "/reset/" + token.token);
+		URL url = new URL("http://" + externalServer + "/reset/" + token.getToken());
 		if (type.equals("password")) {
 			subject = Messages.get("mail.reset.ask.subject");
 			message = Messages.get("mail.reset.ask.message", url.toString());
-			toMail = user.email;
+			toMail = user.getEmail();
 		} else if (type.equals("email")) {
 			subject = Messages.get("mail.change.ask.subject");
 			message = Messages.get("mail.change.ask.message", url.toString());
-			toMail = token.email; // == email parameter
+			toMail = token.getEmail(); // == email parameter
 		}
 		List<String> mail = new ArrayList<String>();
 		mail.add(toMail);

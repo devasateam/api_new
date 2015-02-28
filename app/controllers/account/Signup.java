@@ -1,6 +1,5 @@
 package controllers.account;
 
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Signup extends Application {
 	 * 
 	 * @return Successfull page or created form if bad
 	 */
-	public static Result save(String name,String email,String password) {
+	public static Result save(String name, String email, String password) {
 		Result resultError = checkBeforeSave(email);
 
 		if (resultError != null) {
@@ -43,10 +42,11 @@ public class Signup extends Application {
 
 		try {
 			User user = new User();
-			user.email = email;
-			user.fullname = name;
-			user.passwordHash = Hash.createPassword(password);
-			user.confirmationToken = UUID.randomUUID().toString();
+			user.setEmail(email);
+			user.setFullname(name);
+			user.setPasswordHash(password);
+			user.setConfirmationToken(Hash.createPassword(password));
+			user.setConfirmationToken(UUID.randomUUID().toString());
 			User.create(user);
 
 			sendMailAskForConfirmation(user);
@@ -96,7 +96,7 @@ public class Signup extends Application {
 		String subject = Messages.get("mail.confirm.subject");
 		String urlString = "http://"
 				+ Configuration.root().getString("server.hostname");
-		urlString += "/confirm/" + user.confirmationToken;
+		urlString += "/confirm/" + user.getConfirmationToken();
 		URL url = new URL(urlString); // validate the URL, will throw an
 										// exception if bad.
 		String message = Messages.get("mail.confirm.message", url.toString());
@@ -104,7 +104,7 @@ public class Signup extends Application {
 		// Mail.Envelop envelop = new Mail.Envelop(subject, message,
 		// user.email);
 		List<String> emailList = new ArrayList<String>();
-		emailList.add(user.email);
+		emailList.add(user.getEmail());
 		MailContent content = new MailContent(subject, message, emailList);
 		Mail.sendMail(content);
 	}
@@ -117,14 +117,15 @@ public class Signup extends Application {
 	 * @return Confirmationpage
 	 */
 	public static Result confirm(String token) {
-		Logger.info("----------------------------------token------------"+token);
+		Logger.info("----------------------------------token------------"
+				+ token);
 		User user = User.findByConfirmationToken(token);
 		if (user == null) {
 			flash("error", Messages.get("error.unknown.email"));
 			return jsonResponse(Messages.get("error.unknown.email"), 200);
 		}
 
-		if (user.validated) {
+		if (user.isValidated()) {
 			flash("error", Messages.get("error.account.already.validated"));
 			return jsonResponse(
 					Messages.get("error.account.already.validated"), 200);
@@ -164,8 +165,9 @@ public class Signup extends Application {
 		String subject = Messages.get("mail.welcome.subject");
 		String message = Messages.get("mail.welcome.message");
 		List<String> emailList = new ArrayList<String>();
-		emailList.add(user.email);
-		MailContent content = new MailContent(subject, message, emailList,null, null, null);
+		emailList.add(user.getEmail());
+		MailContent content = new MailContent(subject, message, emailList,
+				null, null, null);
 		Mail.sendMail(content);
 	}
 }

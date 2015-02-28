@@ -109,7 +109,7 @@ public class Reset extends Application {
 
 			return jsonResponse(Messages.get("error.expiredmaillink"), 400);
 		}
-		session("token", resetToken.token);
+		session("token", resetToken.getToken());
 		return redirect("/resetpassword");
 	}
 
@@ -119,6 +119,7 @@ public class Reset extends Application {
 	 */
 	public static Result runReset(String token, String password)
 			throws IOException {
+		token = session().get("token");
 		if (token == null) {
 			flash("error", Messages.get("signup.valid.password"));
 			return jsonResponse(Messages.get("signup.valid.password"), 200);
@@ -132,7 +133,7 @@ public class Reset extends Application {
 				flash("error", Messages.get("error.technical"));
 				return jsonResponse(Messages.get("error.expiredmaillink"), 200);
 			}
-
+			
 			if (resetToken.isExpired()) {
 				TokenDao.delete(resetToken);
 				flash("error", Messages.get("error.expiredresetlink"));
@@ -140,7 +141,8 @@ public class Reset extends Application {
 			}
 
 			// check email
-			User user = User.findById(resetToken.userId);
+			Logger.info("token"+resetToken+"resetToken.userId"+resetToken.getUserId());
+			User user = User.findById(resetToken.getUserId());
 			if (user == null) {
 				flash("error", Messages.get("error.technical"));
 				return jsonResponse(Messages.get("error.technical"), 200);
@@ -148,7 +150,7 @@ public class Reset extends Application {
 
 			String inputPassword = password;
 			user.changePassword(inputPassword);
-
+			Logger.info("password changed"+resetToken.getUserId());
 			// Send email saying that the password has just been changed.
 			sendPasswordChanged(user);
 			flash("success", Messages.get("resetpassword.success"));
@@ -172,7 +174,7 @@ public class Reset extends Application {
 		String subject = Messages.get("mail.reset.confirm.subject");
 		String message = Messages.get("mail.reset.confirm.message");
 		List<String> emailList = new ArrayList<String>();
-		emailList.add(user.email);
+		emailList.add(user.getEmail());
 		MailContent content = new MailContent(subject, message, emailList);
 		Mail.sendMail(content);
 	}
