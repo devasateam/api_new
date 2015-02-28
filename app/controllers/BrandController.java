@@ -15,8 +15,12 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
+
 import com.fasterxml.jackson.databind.JsonNode;
+import com.onliofli.utils.FileUploaderUtil;
+
 import play.mvc.BodyParser;
+
 import com.accounts.service.BrandService;
 import com.accounts.service.impl.BrandServiceImpl;
 
@@ -29,6 +33,7 @@ public class BrandController extends Application {
 		Brand brand = extract(request().body().asJson());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
+
 			return jsonResponse(brand, 200);
 		}
 		return jsonResponse("Unable to save brand.", 400);
@@ -77,6 +82,16 @@ public class BrandController extends Application {
 						+ fileName + ".jpg"));
 				return true;
 			}
+		}
+		return false;
+	}
+
+	public static boolean uploadImageFromBase64(JsonNode json, String fileName) {
+		String encodedString = json.findPath("brand_name") != null ? json
+				.findPath("brand_name").textValue() : null;
+		if (encodedString != null && !encodedString.isEmpty()) {
+			String filePath=Messages.get("brand.images") + "\\"	+ fileName + ".jpg";
+			return (FileUploaderUtil.uploadImageFromBase64(encodedString, filePath));
 		}
 		return false;
 	}

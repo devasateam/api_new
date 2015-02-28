@@ -17,21 +17,10 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
         // if(!(b)) {
         //     return false;
         // }
-        // freeze further action
-        $scope.uploadFile = function(){
-            $http.post('server.php', $scope.image)
-            .success(function(res){
-              alert('View file '+res+'  ?');
-              $window.location.assign(res);
-            })
-          }
-        $scope.AddBrandData.brand_logo = $scope.image;
-        console.log($scope.AddBrandData.brand_logo);
-        console.log('entered');
-        jQuery('#overlay').show();
-        $scope.$watch('files', function () {
-            $scope.upload($scope.files);
-        });
+    	
+    	$scope.AddBrandData.brand_logo=$scope.image.base64;
+    	console.log('brand_logo');
+    	console.log($scope.AddBrandData.brand_logo);
         $http({
             method  : 'POST',
             url     : '/addbrand',
