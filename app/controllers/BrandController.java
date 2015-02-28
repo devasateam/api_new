@@ -1,9 +1,13 @@
 package controllers;
 
+import java.io.File;
 import java.util.Map;
 
 import models.Brand;
 import models.BrandContactDetails;
+import play.i18n.Messages;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -18,12 +22,38 @@ public class BrandController extends Application {
 	public static Result saveBrand() {
 		Brand brand = extract(request());
 		brand = brandService.saveBrand(brand);
-		return jsonResponse(brand, 200);
+		if (brand != null) {
+			uploadImage(request(), brand.getId());
+			return jsonResponse(brand, 200);
+		}
+		return jsonResponse("Unable to save brand.", 400);
+	}
+
+	public static Result saveImage(String fileName) {
+		if (uploadImage(request(), fileName)) {
+			return jsonResponse("Image upload successfully.", 200);
+		}
+		return jsonResponse("Unable to upload", 400);
 	}
 
 	public static Result getBrands() {
 		return jsonResponse(brandService.getBrands(), 200);
 	}
+
+	public static boolean uploadImage(Request request, String fileName) {
+		MultipartFormData body = request.body().asMultipartFormData();
+		if (body != null) {
+			FilePart picture = body.getFile("brandimg");
+			if (picture != null) {
+				File file = picture.getFile();
+				file.renameTo(new File(Messages.get("brand.images") + "\\"
+						+ fileName + ".jpg"));
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private static Brand extract(Request request) {
 		Brand brand = new Brand();
 		Map<String, String[]> parameters = request.body().asFormUrlEncoded();
