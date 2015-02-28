@@ -18,7 +18,6 @@ import org.apache.commons.mail.EmailException;
 import play.Configuration;
 import play.Logger;
 import play.i18n.Messages;
-import play.mvc.Http.Request;
 import play.mvc.Result;
 import controllers.Application;
 
@@ -36,10 +35,6 @@ public class Signup extends Application {
 	 * @return Successfull page or created form if bad
 	 */
 	public static Result save(String name,String email,String password) {
-//		Map<String, String[]> parameters = request().body().asFormUrlEncoded();
-//		String name = parameters.get("name")[0];
-//		String email = parameters.get("email")[0];
-//		String password = parameters.get("password")[0];
 		Result resultError = checkBeforeSave(email);
 
 		if (resultError != null) {
