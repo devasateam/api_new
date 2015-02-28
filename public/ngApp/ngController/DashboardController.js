@@ -4,6 +4,7 @@
         embedded in dashboard.html
 */
 OnliofliApp.controller('DashboardController', function ($scope, $location, $http) {  
+
     jQuery('#overlay').show();
     $http({
         method  : 'GET',
@@ -25,4 +26,22 @@ OnliofliApp.controller('DashboardController', function ($scope, $location, $http
             window.location.href = "error";
         }
     });
+    console.log('inside dashboard');
+    $scope.logoutDash = function(){
+        console.log('inside logout');
+        $http({
+            method  : 'GET',
+            url     : '/logout',
+            dataType : 'JSON',
+        }).success(function (result){
+            jQuery('#overlay').hide();
+            if(result.status_code == 200){
+                window.location.href="/signin.html";
+            }
+            else{
+                window.location.href = "error";
+            }
+        });
+    }
+
 });

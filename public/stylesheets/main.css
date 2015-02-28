@@ -23,8 +23,8 @@ label.error {
 	display: block;
 }
 /*------------------End Validation-------------*/
-/*header {
-	background: #7FC5BA;
+.header-wrap {
+	background: #666;
 	height: 50px;
 	text-transform: uppercase;
 	font-size: 13px;
@@ -32,11 +32,17 @@ label.error {
 	box-shadow: 0px 2px 12px #000;
 	-moz-box-shadow: 0px 2px 12px #000;
 	-webkit-box-shadow: 0px 2px 12px #000;
-	position: fixed;
+	/*position: fixed;
 	z-index: 999;
 	top: 0px;
-	left: 0px;
-}*/
+	left: 0px;*/
+}
+.logout {
+	color: #fff;
+	float: right;
+	width: 100px;
+	padding: 15px;
+}
 .overlay {
 	position: fixed;
 	width: 100%;
@@ -332,7 +338,7 @@ label.error {
 
 .content {
 	display: inline-block;
-	padding: 0 40px;
+	padding: 15px 40px;
 }
 
 /*.form-input-row label{

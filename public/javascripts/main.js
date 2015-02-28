@@ -237,16 +237,17 @@ jQuery(document).ready(function(){
 	    });
 	});
 
-	$("form#resetPass").submit(function(e){
+	$("form#resetconfPass").submit(function(e){
 		e.preventDefault();
-		var b = $("form#resetPass").valid();
+		var b = $("form#resetconfPass").valid();
 		if(!(b)) {
             return false;
         }
-		var email = $('#email').val();
+		var password = $('#resetpassword').val();
+		var token = "";
 	    jQuery.ajax({
-	        url: '/updatepass?password='+password,
-	        type: 'POST',
+	        url: '/reset?token='+token+'&password='+password,
+	        type: 'GET',
 	        success: function (result) {
 	        	console.log(result);
 	           if(result.status_code == 200)
