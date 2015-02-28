@@ -8,6 +8,7 @@ import java.util.Map;
 import models.Brand;
 import models.BrandContactDetails;
 import models.ContactPersonDetails;
+import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -29,6 +30,11 @@ public class BrandController extends Application {
 	}
 	
 	public static Result saveMultipartBrand() {
+		if(request().body().asMultipartFormData().asFormUrlEncoded() != null){
+				Logger.info("not nul-----------");
+		}else{
+			Logger.info("------------nul-----------");
+		}
 		Brand brand = extract(request().body().asMultipartFormData().asFormUrlEncoded());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
@@ -64,8 +70,9 @@ public class BrandController extends Application {
 	}
 
 	private static Brand extract(Map<String, String[]> parameters) {
+		Logger.info("brand_name"+parameters.get("brand_name")[0]);
 		Brand brand = new Brand();
-		brand.setName(parameters.get("barnd_name")[0]);
+		brand.setName(parameters.get("brand_name")[0]);
 		brand.setDescription(parameters.get("desc")[0]);
 		BrandContactDetails brandContactDetails = new BrandContactDetails();
 		brandContactDetails.setAddressline1(parameters

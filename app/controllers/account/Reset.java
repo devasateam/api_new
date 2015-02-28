@@ -96,9 +96,7 @@ public class Reset extends Application {
 
 			return jsonResponse(Messages.get("error.technical"), 400);
 		}
-		System.out.println(token);
-		Token resetToken = TokenDao.findByTokenAndType(token,"password");
-		System.out.println(resetToken);
+		Token resetToken = TokenDao.findByTokenAndType(token, "password");
 		if (resetToken == null) {
 			flash("error", Messages.get("error.technical"));
 
@@ -109,26 +107,27 @@ public class Reset extends Application {
 			TokenDao.delete(resetToken);
 			flash("error", Messages.get("error.expiredresetlink"));
 
-			return jsonResponse(Messages.get("error.expiredmaillink"),400);
+			return jsonResponse(Messages.get("error.expiredmaillink"), 400);
 		}
-
-		return jsonResponse(Messages.get("account.settings.email.successful"),
-				200);
+		session("token", resetToken.token);
+		return redirect("/resetpassword");
 	}
 
 	/**
 	 * @return reset password
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public static Result runReset(String token, String password) throws IOException {
+	public static Result runReset(String token, String password)
+			throws IOException {
 		if (token == null) {
 			flash("error", Messages.get("signup.valid.password"));
 			return jsonResponse(Messages.get("signup.valid.password"), 200);
+		} else {
+			token = session().get("token");
 		}
 
 		try {
-			Token resetToken = TokenDao.findByTokenAndType(token,
-					"password");
+			Token resetToken = TokenDao.findByTokenAndType(token, "password");
 			if (resetToken == null) {
 				flash("error", Messages.get("error.technical"));
 				return jsonResponse(Messages.get("error.expiredmaillink"), 200);
