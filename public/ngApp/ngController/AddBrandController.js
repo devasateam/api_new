@@ -6,10 +6,10 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
     $scope.AddBrandData = {
         "brand_name" : "",
         "brand_logo" : "",
-        "brand_address" : "",
+        "brand_addressline1" : "",
+        "brand_addressline2" : "",
         "brand_contact_name" : "",
-        "brand_contact_number" : "",
-        "brand_logo" : ""
+        "brand_contact_number" : ""
     };
     $scope.addbrand = function(){
         // checking validations
@@ -18,8 +18,18 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
         //     return false;
         // }
         // freeze further action
+        $scope.uploadFile = function(){
+            $http.post('server.php', $scope.image)
+            .success(function(res){
+              alert('View file '+res+'  ?');
+              $window.location.assign(res);
+            })
+          }
         console.log('entered');
         jQuery('#overlay').show();
+        $scope.$watch('files', function () {
+            $scope.upload($scope.files);
+        });
         $http({
             method  : 'POST',
             url     : '/addbrand',

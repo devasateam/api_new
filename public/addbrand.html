@@ -2,7 +2,7 @@
 	<div class="inner-title">
 		<h4>Enter the Brand details</h4>
 	</div><!--end of inner-title-->
-	<form name="add_brand" method="POST" id="add_brand" enctype="multipart/form-data" novalidate role="form" ng-submit="addbrand(add_brand)">
+	<form name="add_brand" method="POST" id="add_brand"  novalidate role="form">
 		<div class="form-input-row">
 			<!-- <label>Brand Name</label> -->
 			<input type="text" name="brand_name" id="brand_name" placeholder="Brand Name" ng-model="AddBrandData.brand_name" required/>
@@ -10,7 +10,11 @@
 		</div>
 		<div class="form-input-row">
 			<label>Brand Logo</label>
-			<input type="file" name="brand_logo" id="brand_logo" ng-model="AddBrandData.brand_logo"/>
+			<!-- <input type="file" name="brand_logo" id="brand_logo" ng-model="AddBrandData.brand_logo"/> -->
+			<!-- <div class="button" ng-file-select ng-model="AddBrandData.brand_logo" ng-multiple="multiple">Select File</div> -->
+			<input type="file" ng-model="image" name="file" base-sixty-four-input>
+			<!-- <img ng-src="data:{{image.filetype}};base64,{{image.base64}}" alt=""> -->
+
 
 			<!-- <div flow-init="{singleFile:true,target: 'saveBrandImage(logo)'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope" flow-files-submitted="$flow.upload()">
 				<div class="thumbnail upload-img" ng-show="!$flow.files.length">
@@ -51,7 +55,7 @@
 			<p  ng-show="submitted && add_brand.brand_contact_number.$error.required" class="validation_error">Above field is required</p>
 		</div>
 
-		<button class="onliofli-button">Add Brand</button>
+		<button class="onliofli-button" ng-click="addbrand(add_brand);uploadFile()">Add Brand</button>
 		
 	</form>
 </div>

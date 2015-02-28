@@ -1,9 +1,6 @@
-var OnliofliApp = angular.module('Onliofli', ['ngRoute', 'flow'] );
-OnliofliApp.config(['$routeProvider', '$httpProvider', 'flowFactoryProvider', function ($routeProvider,$httpProvider,flowFactoryProvider) {
+var OnliofliApp = angular.module('Onliofli', ['ngRoute', 'flow','naif.base64'] );
+OnliofliApp.config(['$routeProvider', '$httpProvider', function ($routeProvider,$httpProvider) {
     
-    flowFactoryProvider.on('catchAll', function (event) {
-    console.log('catchAll', arguments);
-    });
 
     $routeProvider.when('/addBrand', {
         templateUrl: 'addbrand.html',
