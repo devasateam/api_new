@@ -64,6 +64,37 @@ public class Signup extends Application {
 		return jsonResponse(Messages.get("error.email.already.exist"), 200);
 	}
 
+	public static Result saveGP(String name, String email, String provider,
+			String id_token) {
+		Result resultError = checkBeforeSave(email);
+
+		if (resultError != null) {
+			return resultError;
+		}
+
+		try {
+			User user = new User();
+			user.setEmail(email);
+			user.setFullname(name);
+			user.setProvider(provider);
+			user.setId_token(id_token);
+			user.setValidated(true);
+			User.create(user);
+			session("email", email);
+			sendMailAskForConfirmation(user);
+
+			return redirect("/dashboard");
+		} catch (EmailException e) {
+			Logger.debug("Signup.save Cannot send email", e);
+			flash("error", Messages.get("error.sending.email"));
+		} catch (Exception e) {
+			Logger.error("Signup.save error", e);
+			flash("error", Messages.get("error.technical"));
+		}
+
+		return jsonResponse(Messages.get("error.email.already.exist"), 200);
+	}
+
 	/**
 	 * Check if the email already exists.
 	 * 

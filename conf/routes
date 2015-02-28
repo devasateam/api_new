@@ -17,6 +17,9 @@ GET     /logout                     controllers.AuthenticationController.logout(
 # Registers the user, sending an email to confirm the account.
 POST    /signup                     controllers.account.Signup.save(name:String,email:String,password:String)
 
+#Google plus login
+POST    /gpsignup                     controllers.account.Signup.saveGP(name:String,email:String,provider:String,id_token:String)
+
 # Accessed when the user confirms the registration.
 GET     /confirm/:confirmToken      controllers.account.Signup.confirm(confirmToken:String)
 

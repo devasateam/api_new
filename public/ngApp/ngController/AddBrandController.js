@@ -25,6 +25,8 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
               $window.location.assign(res);
             })
           }
+        $scope.AddBrandData.brand_logo = $scope.image;
+        console.log($scope.AddBrandData.brand_logo);
         console.log('entered');
         jQuery('#overlay').show();
         $scope.$watch('files', function () {
