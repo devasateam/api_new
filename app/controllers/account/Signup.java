@@ -66,10 +66,13 @@ public class Signup extends Application {
 
 	public static Result saveGP(String name, String email, String provider,
 			String id_token) {
+		Logger.info("email----------------------"+email);
 		Result resultError = checkBeforeSave(email);
 
 		if (resultError != null) {
 			return resultError;
+		}else if(email==null){
+			jsonResponse(Messages.get("error"), 400);
 		}
 
 		try {
@@ -81,18 +84,16 @@ public class Signup extends Application {
 			user.setValidated(true);
 			User.create(user);
 			session("email", email);
-			sendMailAskForConfirmation(user);
+//			sendMailAskForConfirmation(user);
 
-			return redirect("/dashboard");
-		} catch (EmailException e) {
-			Logger.debug("Signup.save Cannot send email", e);
-			flash("error", Messages.get("error.sending.email"));
-		} catch (Exception e) {
+			return jsonResponse(Messages.get("account.successfully.validated"),
+					200);
+		}  catch (Exception e) {
 			Logger.error("Signup.save error", e);
 			flash("error", Messages.get("error.technical"));
 		}
 
-		return jsonResponse(Messages.get("error.email.already.exist"), 200);
+		return jsonResponse(Messages.get("error.email.already.exist"), 400);
 	}
 
 	/**

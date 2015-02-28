@@ -49,9 +49,7 @@ console.log(myParams);
 			 	full_name = resp['displayName'];
 			 	id_token = result['id_token'];
 			 	provider = "googlePlus";
-			 	console.log('id_token');
-			 	console.log(id_token);
-			 	
+			 	console.log("send_email-----"+send_email);
 			    jQuery.ajax({
 			        type: 'POST',
 			        url: '/gpsignup?name='+full_name+'&email='+send_email+'&id_token='+id_token+'&provider='+provider,
