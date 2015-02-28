@@ -3,12 +3,14 @@ package controllers.account.settings;
 
 import java.net.MalformedURLException;
 
-import models.Token;
 import models.User;
 import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Result;
 import play.mvc.Security;
+
+import com.ecommerce.model.dao.TokenDao;
+
 import controllers.Application;
 import controllers.Secured;
 
@@ -27,7 +29,7 @@ public class Password extends Application {
     public static Result runPassword() {
         User user = User.findByEmail(request().username());
         try {
-            Token.sendMailResetPassword(user);
+            TokenDao.sendMailResetPassword(user);
             flash("success", Messages.get("resetpassword.mailsent"));
             return jsonResponse(Messages.get("resetpassword.mailsent"),200);
         } catch (MalformedURLException e) {

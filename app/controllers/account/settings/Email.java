@@ -1,16 +1,17 @@
 package controllers.account.settings;
 
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import models.Token;
-import models.TypeToken;
 import models.User;
 import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Result;
 import play.mvc.Security;
+
+import com.ecommerce.model.dao.TokenDao;
+
 import controllers.Application;
 import controllers.Secured;
 
@@ -28,7 +29,6 @@ public class Email extends Application {
 	 * @return index settings
 	 */
 	public static Result index() {
-		User user = User.findByEmail(request().username());
 		return jsonResponse(Messages.get("signup.reset.password"), 200);
 	}
 
@@ -41,7 +41,7 @@ public class Email extends Application {
 		User user = User.findByEmail(request().username());
 		try {
 			String mail = user.email;
-			Token.sendMailChangeMail(user, mail);
+			TokenDao.sendMailChangeMail(user, mail);
 			flash("success", Messages.get("changemail.mailsent"));
 			return jsonResponse(Messages.get("changemail.mailsent"), 200);
 		} catch (MalformedURLException e) {
@@ -55,7 +55,7 @@ public class Email extends Application {
 	 * Validate a email.
 	 * 
 	 * @return email page with flash error or success
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static Result validateEmail(String token) throws IOException {
 		User user = User.findByEmail(request().username());
@@ -65,28 +65,28 @@ public class Email extends Application {
 			return jsonResponse(Messages.get("error.technical"), 200);
 		}
 
-		Token resetToken = Token.findByTokenAndType(token,
-				TypeToken.email);
+		Token resetToken = TokenDao.findByTokenAndType(token, "email");
 		if (resetToken == null) {
 			flash("error", Messages.get("error.technical"));
 			return jsonResponse(Messages.get("error.technical"), 200);
 		}
 
 		if (resetToken.isExpired()) {
-			resetToken.delete(resetToken);
+			TokenDao.delete(resetToken);
 			flash("error", Messages.get("error.expiredmaillink"));
 			return jsonResponse(Messages.get("error.expiredmaillink"), 200);
 		}
 
 		user.email = resetToken.email;
-		user.update(user);
+		User.update(user);
 
 		session("email", resetToken.email);
 
 		flash("success",
 				Messages.get("account.settings.email.successful", user.email));
 
-		return jsonResponse(Messages.get(user.email+"ccount.settings.email.successful"),
+		return jsonResponse(
+				Messages.get(user.email + "ccount.settings.email.successful"),
 				200);
 	}
 }
