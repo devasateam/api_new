@@ -69,7 +69,7 @@ public class Reset extends Application {
 			Logger.error("Cannot validate URL", e);
 			flash("error", Messages.get("error.technical"));
 		}
-		return jsonResponse(Messages.get("error.expiredmaillink"), 200);
+		return jsonResponse(Messages.get("error.expiredmaillink"), 400);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class Reset extends Application {
 			return jsonResponse(Messages.get("resetpassword.success"), 200);
 		} catch (AppException e) {
 			flash("error", Messages.get("error.technical"));
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
 
 	}
