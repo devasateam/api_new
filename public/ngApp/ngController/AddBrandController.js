@@ -6,9 +6,10 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
     $scope.AddBrandData = {
         "brand_name" : "",
         "brand_logo" : "",
-        "brand_address" : "",
+        "brand_addressline1" : "",
+        "brand_addressline2" : "",
         "brand_contact_name" : "",
-        "brand_contact_details" : "",
+        "brand_contact_number" : ""
     };
     $scope.addbrand = function(){
         // checking validations

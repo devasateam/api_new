@@ -6,7 +6,7 @@ OnliofliApp.config(['$routeProvider', '$httpProvider', 'flowFactoryProvider', fu
     });
 
     $routeProvider.when('/addBrand', {
-        templateUrl: 'add-brand.html',
+        templateUrl: 'addbrand.html',
         controller:  'AddBrandController'
     });
 }]);

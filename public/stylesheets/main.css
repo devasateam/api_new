@@ -14,11 +14,15 @@ body {
 }
 /*-------------------End of button-----------------*/
 
-.sign-container {
+.sign-container,
+.resetPass-container{
 	width: 600px;
 	display: inline-block;
 	text-align: right;
 	height: auto;
+}
+.resetPass-container {
+	width: 350px;
 }
 .side-block {
 	display: inline-block;
@@ -55,7 +59,8 @@ body {
 	top: 8px;
 	left: -6px;
 }
-.sign-in {
+.sign-in,
+.reset-password {
 	border: 1px solid #BCE5F8;
 	padding: 10px;
 	margin-bottom: 50px;
@@ -86,7 +91,8 @@ body {
 	color: #ffffff;
 	font-weight: bold;
 }*/
-.sign-container input {
+.sign-container input,
+.resetPass-container input {
 	width: 180px;
 	margin-bottom: 10px;
 	border: 1px solid #BCE5F8;
@@ -100,7 +106,8 @@ body {
 	color: #ffffff;
 	font-weight: bold;
 }
-.sign-title {
+.sign-title,
+.reset-title {
 	background: yellow;
 	background: -webkit-linear-gradient(#BCE5F8, #10AAEE); /* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(#BCE5F8, #10AAEE); /* For Opera 11.1 to 12.0 */
@@ -113,7 +120,8 @@ body {
 	font-weight: bold;
 }
 .sign-container #signInSubmit,
-.sign-container #signUpSubmit{
+.sign-container #signUpSubmit,
+.resetPass-container #resetPassSubmit{
 	cursor: pointer;
 	background-color: #10AAEE;
 	border-radius: 5px;
