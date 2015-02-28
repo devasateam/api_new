@@ -1,0 +1,48 @@
+<div class="content" ng-controller="AddBrandController">
+	<div class="inner-title">
+		<h4>Enter the Brand details</h4>
+	</div><!--end of inner-title-->
+	<form name="add_rand" method="POST" id="add_brand" novalidate role="form">
+		<div class="form-input-row">
+			<!-- <label>Brand Name</label> -->
+			<input type="text" name="brand_name" id="brand_name" placeholder="Brand Name" ng-model="AddBrandData.brand_name"/>
+		</div>
+		<div class="form-input-row">
+			<!-- <label>Brand Logo</label> -->
+			<!-- <input type="text" name="brand_logo" id="brand_logo" placeholder="Brand Logo" ng-model="AddBrandData.brand_logo"/> -->
+
+			<div flow-init="{singleFile:true,target: 'uploadFile'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope" flow-files-submitted="$flow.upload()">
+				<div class="thumbnail upload-img" ng-show="!$flow.files.length">
+					<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=upload logo">
+				</div>
+				<div class="thumbnail upload-img ng-hide" ng-show="$flow.files.length">
+				    <img flow-img="$flow.files[0]">
+				</div>
+				<div>
+					<span class="onliofli-button image-button btn btn-primary" ng-show="!$flow.files.length" flow-btn="">
+						Select image
+						<input type="file" style="visibility: hidden; position: absolute;">
+					</span>
+					<span class="onliofli-button image-button remove btn btn-danger ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+						Remove
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-input-row">
+			<!-- <label>Address</label> -->
+			<textarea name="brand_address" id="brand_address" placeholder="Address" ng-model="AddBrandData.brand_address"></textarea>
+		</div>
+		<div class="form-input-row">
+			<!-- <label>Contact Name</label> -->
+			<input type="text" name="brand_contact_name" id="brand_contact_name" placeholder="Contact Name" ng-model="AddBrandData.brand_contact_name" />
+		</div>
+		<div class="form-input-row">
+			<!-- <label>Contact Details</label> -->
+			<input type="text" name="brand_contact_details" id="brand_contact_details" placeholder="Contact Details" ng-model="AddBrandData.brand_contact_details"/>
+		</div>
+
+		<button class="onliofli-button" ng-click="addbrand()">Add Brand</button>
+		
+	</form>
+</div>
