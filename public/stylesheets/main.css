@@ -12,13 +12,57 @@ body {
 	border-radius: 0!important;
 	padding: 10px;
 }
-/*-------------------End of button-----------------*/
-
-.sign-container {
+/*-------------------End button-----------------*/
+/*--------------------validation------------------*/
+.validation_error {
+	color: red;
+}
+label.error {
+	color: red;
+	font-size: 10px;
+	display: block;
+}
+/*------------------End Validation-------------*/
+/*header {
+	background: #7FC5BA;
+	height: 50px;
+	text-transform: uppercase;
+	font-size: 13px;
+	width: 100%;
+	box-shadow: 0px 2px 12px #000;
+	-moz-box-shadow: 0px 2px 12px #000;
+	-webkit-box-shadow: 0px 2px 12px #000;
+	position: fixed;
+	z-index: 999;
+	top: 0px;
+	left: 0px;
+}*/
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: black url(../images/loader.gif) center center no-repeat;
+	opacity: .5;
+	z-index: 1000000;
+	display: none;
+}
+/*.logo {
+	height: 53px;
+	width: 200px;
+	background: url('../images/logo.png');
+	background-size: 41%;
+	background-repeat: no-repeat;
+	margin: 8px;
+}*/
+.sign-container,
+.resetPass-container{
 	width: 600px;
 	display: inline-block;
 	text-align: right;
 	height: auto;
+}
+.resetPass-container {
+	width: 350px;
 }
 .side-block {
 	display: inline-block;
@@ -55,7 +99,8 @@ body {
 	top: 8px;
 	left: -6px;
 }
-.sign-in {
+.sign-in,
+.reset-password {
 	border: 1px solid #BCE5F8;
 	padding: 10px;
 	margin-bottom: 50px;
@@ -86,7 +131,8 @@ body {
 	color: #ffffff;
 	font-weight: bold;
 }*/
-.sign-container input {
+.sign-container input,
+.resetPass-container input {
 	width: 180px;
 	margin-bottom: 10px;
 	border: 1px solid #BCE5F8;
@@ -100,7 +146,8 @@ body {
 	color: #ffffff;
 	font-weight: bold;
 }
-.sign-title {
+.sign-title,
+.reset-title {
 	background: yellow;
 	background: -webkit-linear-gradient(#BCE5F8, #10AAEE); /* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(#BCE5F8, #10AAEE); /* For Opera 11.1 to 12.0 */
@@ -113,7 +160,8 @@ body {
 	font-weight: bold;
 }
 .sign-container #signInSubmit,
-.sign-container #signUpSubmit{
+.sign-container #signUpSubmit,
+.resetPass-container #resetPassSubmit{
 	cursor: pointer;
 	background-color: #10AAEE;
 	border-radius: 5px;
@@ -127,11 +175,7 @@ body {
 	display: inline-block;
 	font-size: 11px;
 }
-label.error {
-	color: red;
-	font-size: 10px;
-	display: block;
-}
+
 /*-------------Sidebar-------------------*/
 .sidebar {
 	background-color: #666;

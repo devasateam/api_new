@@ -2,18 +2,19 @@
 	<div class="inner-title">
 		<h4>Enter the Brand details</h4>
 	</div><!--end of inner-title-->
-	<form name="add_rand" method="POST" id="add_brand" novalidate role="form">
+	<form name="add_brand" method="POST" id="add_brand" novalidate role="form">
 		<div class="form-input-row">
 			<!-- <label>Brand Name</label> -->
-			<input type="text" name="brand_name" id="brand_name" placeholder="Brand Name" ng-model="AddBrandData.brand_name"/>
+			<input type="text" name="brand_name" id="brand_name" placeholder="Brand Name" ng-model="AddBrandData.brand_name" required/>
+			<p  ng-show="submitted && add_brand.brand_name.$error.required" class="validation_error">Above field is required</p>
 		</div>
 		<div class="form-input-row">
 			<!-- <label>Brand Logo</label> -->
 			<!-- <input type="text" name="brand_logo" id="brand_logo" placeholder="Brand Logo" ng-model="AddBrandData.brand_logo"/> -->
 
-			<div flow-init="{singleFile:true,target: 'uploadFile'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope" flow-files-submitted="$flow.upload()">
+			<div flow-init="{singleFile:true,target: 'saveBrandImage(logo)'}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope" flow-files-submitted="$flow.upload()">
 				<div class="thumbnail upload-img" ng-show="!$flow.files.length">
-					<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=upload logo">
+					<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=Upload Logo">
 				</div>
 				<div class="thumbnail upload-img ng-hide" ng-show="$flow.files.length">
 				    <img flow-img="$flow.files[0]">
@@ -31,15 +32,23 @@
 		</div>
 		<div class="form-input-row">
 			<!-- <label>Address</label> -->
-			<textarea name="brand_address" id="brand_address" placeholder="Address" ng-model="AddBrandData.brand_address"></textarea>
+			<input name="brand_addressline1" id="brand_addressline1" placeholder="Address line 1" ng-model="AddBrandData.brand_addressline1" required/>
+			<p  ng-show="submitted && add_brand.brand_addressline1.$error.required" class="validation_error">Above field is required</p>
+		</div>
+		<div class="form-input-row">
+			<!-- <label>Address</label> -->
+			<input name="brand_addressline2" id="brand_addressline2" placeholder="Address line 2" ng-model="AddBrandData.brand_addressline2" required >
+			<p  ng-show="submitted && add_brand.brand_addressline2.$error.required" class="validation_error">Above field is required</p>
 		</div>
 		<div class="form-input-row">
 			<!-- <label>Contact Name</label> -->
-			<input type="text" name="brand_contact_name" id="brand_contact_name" placeholder="Contact Name" ng-model="AddBrandData.brand_contact_name" />
+			<input type="text" name="brand_contact_name" id="brand_contact_name" placeholder="Contact Name" ng-model="AddBrandData.brand_contact_name" required />
+			<p  ng-show="submitted && add_brand.brand_contact_name.$error.required" class="validation_error">Above field is required</p>
 		</div>
 		<div class="form-input-row">
 			<!-- <label>Contact Details</label> -->
-			<input type="text" name="brand_contact_details" id="brand_contact_details" placeholder="Contact Details" ng-model="AddBrandData.brand_contact_details"/>
+			<input type="text" name="brand_contact_number" id="brand_contact_number" placeholder="Contact Number" ng-model="AddBrandData.brand_contact_number" required/>
+			<p  ng-show="submitted && add_brand.brand_contact_number.$error.required" class="validation_error">Above field is required</p>
 		</div>
 
 		<button class="onliofli-button" ng-click="addbrand()">Add Brand</button>

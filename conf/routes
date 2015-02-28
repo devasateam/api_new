@@ -4,6 +4,7 @@
 
 # Home page It is hard coded as Sign in
 GET     /     						controllers.Assets.at(path="/public", file="signin.html")
+GET     /dashboard     				controllers.Assets.at(path="/public", file="dashboard.html")
 
 #Login page will return you Dash Board Json if Success else status code and message
 POST    /login                      controllers.AuthenticationController.authenticate(email:String,password:String)

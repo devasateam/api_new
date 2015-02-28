@@ -159,25 +159,24 @@ jQuery(document).ready(function(){
         }
         var email = $('#email').val();
 		var pass = $('#password').val();
-	    // var srt = jQuery("#" + jQuery(this).attr("id")).serialize();
     	jQuery.ajax({
 	        type: 'POST',
 	        url: '/login?email='+email+'&password='+pass,
 	        dataType: 'JSON',
 	        success: function(result) {
-	        	window.location.href=result
-	        	// if(result.status_code == 200)
-	        	// {
-	        	// 	window.location.href="/dashboard";
-	        	// }
-	        	// else if(result.status_code == 401)
-          //       {
-          //           window.location.href="/login";
-          //       }
-	        	// else
-	        	// {
-	        	// 	alert(result.data.Reason);
-	        	// }
+	        	
+	        	if(result.status_code == 200)
+	        	{
+	        		window.location.href="/dashboard";
+	        	}
+	        	else if(result.status_code == 401)
+                {
+                    window.location.href="/login";
+                }
+	        	else
+	        	{
+	        		alert(result.data.Reason);
+	        	}
 	        }
     	});
  	});
@@ -187,40 +186,62 @@ jQuery(document).ready(function(){
 		var b = $("form#signUp").valid();
 		if(!(b)) {
             return false;
-        }
-
-
-		console.log('clicked');
-		
+        }	
 		var fullname = $('#fullname').val();
 		var email = $('#newemail').val();
 		var pass = $('#newpassword').val();
 		var conf_pass = $('#conf_pass').val();
-			console.log('checking if pass');
-			 var formData = new FormData($(this)[0]);
-		     var srt = jQuery("#" + jQuery(this).attr("id")).serialize();
-		     var data={'name':fullname,'email': email,'password':pass};
-		    jQuery.ajax({
-		        url: '/signup?name='+fullname+'&email='+email+'&password='+pass,
-		        type: 'POST',
-		        success: function (result) {
-		        	console.log(result);
-		           if(result.status_code == 200)
-		        	{
-		        		window.location.href="/dashboard";
-		        	}
-		        	else if(result.status_code == 401)
-	                {
-	                    window.location.href="/login";
-	                }
-		        	else
-		        	{
-		        		alert(result.data.Reason);
-		        	}
-		        }
-		    });
+	    jQuery.ajax({
+	        url: '/signup?name='+fullname+'&email='+email+'&password='+pass,
+	        type: 'POST',
+	        success: function (result) {
+	        	console.log(result);
+	           if(result.status_code == 200)
+	        	{
+	        		window.location.href="/dashboard";
+	        	}
+	        	else if(result.status_code == 401)
+                {
+                    window.location.href="/login";
+                }
+	        	else
+	        	{
+	        		alert(result.data.Reason);
+	        	}
+	        }
+	    });
 	});
+	$("form#resetPass").submit(function(e){
+		e.preventDefault();
+		var b = $("form#resetPass").valid();
+		if(!(b)) {
+            return false;
+        }
+		var email = $('#email').val();
+	    jQuery.ajax({
+	        url: '/askresetpassword?email='+email,
+	        type: 'POST',
+	        success: function (result) {
+	        	console.log(result);
+	           if(result.status_code == 200)
+	        	{
+	        		window.location.href="/signin.html";
+	        	}
+	        	else
+	        	{
+	        		alert(result.data.Reason);
+	        	}
+	        }
+	    });
+	});
+	
+	var height = $(document).height();
+	$('.sidebar').css('height',height);
 	    
+});
+$(document).click(function() {
+    var height = $(document).height();
+	$('.sidebar').css('height',height);
 });
 
 	 
