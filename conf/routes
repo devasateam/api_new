@@ -35,10 +35,10 @@ GET     /email/:token               controllers.account.settings.Email.validateE
 GET    	/brands                	controllers.BrandController.getBrands()
 
 #Add Brand providing all the params
-POST   /addbrand			               controllers.BrandController.saveBrand()
-POST  /saveBrandImage	               controllers.BrandController.saveImage(fileName:String)
+POST   /addbrand			           	  controllers.BrandController.saveBrand()
+POST   /saveBrandImage	                  controllers.BrandController.saveImage(fileName:String)
 
-POST /saveMultipartBrand				controllers.BrandController.saveMultipartBrand()
+POST   /saveMultipartBrand				  controllers.BrandController.saveMultipartBrand()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
