@@ -35,5 +35,7 @@ GET    	/brands                	controllers.BrandController.getBrands()
 GET   /addbrand			               controllers.BrandController.saveBrand()
 POST  /saveBrandImage	               controllers.BrandController.saveImage(fileName:String)
 
+POST /saveMultipartBrand				controllers.BrandController.saveMultipartBrand()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
