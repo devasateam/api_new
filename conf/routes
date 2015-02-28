@@ -33,6 +33,7 @@ GET    	/brands                	controllers.BrandController.getBrands()
 
 #Add Brand providing all the params
 GET   /addbrand			               controllers.BrandController.saveBrand()
+POST  /saveBrandImage	               controllers.BrandController.saveImage(fileName:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
