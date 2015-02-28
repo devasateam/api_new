@@ -57,11 +57,11 @@ public class BrandController extends Application {
 	private static Brand extract(Request request) {
 		Brand brand = new Brand();
 		Map<String, String[]> parameters = request.body().asFormUrlEncoded();
-		brand.setName(parameters.get("name")[0]);
+		brand.setName(parameters.get("barnd_name")[0]);
 		brand.setDescription(parameters.get("desc")[0]);
 		BrandContactDetails brandContactDetails = new BrandContactDetails();
-		brandContactDetails.setAddressline1(parameters.get("addressline1")[0]);
-		brandContactDetails.setAddressline2(parameters.get("addressline2")[0]);
+		brandContactDetails.setAddressline1(parameters.get("brand_addressline1")[0]);
+		brandContactDetails.setAddressline2(parameters.get("brand_addressline2")[0]);
 		brand.setBrandContactDetails(brandContactDetails);
 		return brand;
 	}
