@@ -1,4 +1,4 @@
-var OnliofliApp = angular.module('Onliofli', ['ngRoute', 'flow','naif.base64'] );
+var OnliofliApp = angular.module('Onliofli', ['ngRoute','naif.base64'] );
 OnliofliApp.config(['$routeProvider', '$httpProvider', function ($routeProvider,$httpProvider) {
     
 
