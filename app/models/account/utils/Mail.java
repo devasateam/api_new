@@ -21,18 +21,6 @@ import play.Logger;
  */
 public class Mail {
 
-	/**
-	 * 1 second delay on sending emails
-	 */
-	private static final int DELAY = 1;
-
-	/**
-	 * Send a email, using Akka to offload it to an actor.
-	 * 
-	 * @param envelop
-	 *            envelop to send
-	 */
-
 	public static void sendMail(MailContent mailContent) {
 		final Configuration root = Configuration.root();
 		final String from = root.getString("mail.from");
@@ -59,7 +47,6 @@ public class Mail {
 						return new PasswordAuthentication(from, password);
 					}
 				});
-		// compose the message
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));

@@ -2,16 +2,13 @@ package controllers.account.settings;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import models.Token;
 import models.User;
 import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Result;
 import play.mvc.Security;
-
 import com.ecommerce.model.dao.TokenDao;
-
 import controllers.Application;
 import controllers.Secured;
 

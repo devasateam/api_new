@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +16,10 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.onliofli.utils.FileUploaderUtil;
-
+import com.onliofli.utils.UploadFilePathFactory;
 import play.mvc.BodyParser;
-
 import com.accounts.service.BrandService;
 import com.accounts.service.impl.BrandServiceImpl;
 
@@ -33,7 +32,8 @@ public class BrandController extends Application {
 		Brand brand = extract(request().body().asJson());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
-
+			Logger.info("Moving to save image step 2");
+			uploadImageFromBase64(request().body().asJson(), brand.getId());
 			return jsonResponse(brand, 200);
 		}
 		return jsonResponse("Unable to save brand.", 400);
@@ -47,16 +47,12 @@ public class BrandController extends Application {
 
 	public static Result saveMultipartBrand() {
 		if (request().body().asMultipartFormData().asFormUrlEncoded() != null) {
-			Logger.info("not nul-----------");
-		} else {
-			Logger.info("------------nul-----------");
-		}
-		Brand brand = extract(request().body().asMultipartFormData()
-				.asFormUrlEncoded());
+		Brand brand = extract(request().body().asMultipartFormData().asFormUrlEncoded());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
 			uploadImage(request(), brand.getId());
 			return jsonResponse(brand, 200);
+		}
 		}
 		return jsonResponse("Unable to save brand.", 400);
 	}
@@ -78,8 +74,7 @@ public class BrandController extends Application {
 			FilePart picture = body.getFile("brandimg");
 			if (picture != null) {
 				File file = picture.getFile();
-				file.renameTo(new File(Messages.get("brand.images") + "\\"
-						+ fileName + ".jpg"));
+				file.renameTo(new File(Messages.get("brand.images") + "\\"+ fileName + ".jpg"));
 				return true;
 			}
 		}
@@ -87,11 +82,10 @@ public class BrandController extends Application {
 	}
 
 	public static boolean uploadImageFromBase64(JsonNode json, String fileName) {
-		String encodedString = json.findPath("brand_name") != null ? json
-				.findPath("brand_name").textValue() : null;
+		String encodedString = json.findPath("brand_logo") != null ? json.findPath("brand_logo").textValue() : null;
 		if (encodedString != null && !encodedString.isEmpty()) {
-			String filePath=Messages.get("brand.images") + "\\"	+ fileName + ".jpg";
-			return (FileUploaderUtil.uploadImageFromBase64(encodedString, filePath));
+			String filePath = UploadFilePathFactory.brandUploadPath() + fileName;
+			return (FileUploaderUtil.uploadImageFromBase64(encodedString,filePath,fileName+".jpg"));
 		}
 		return false;
 	}
