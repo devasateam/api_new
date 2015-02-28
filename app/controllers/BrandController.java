@@ -15,7 +15,8 @@ import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import play.mvc.BodyParser;
 import com.accounts.service.BrandService;
 import com.accounts.service.impl.BrandServiceImpl;
 
@@ -23,19 +24,30 @@ import com.accounts.service.impl.BrandServiceImpl;
 public class BrandController extends Application {
 	private static BrandService brandService = new BrandServiceImpl();
 
-	public static Result saveBrand() {
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result saveBrandJson() {
+		Brand brand = extract(request().body().asJson());
+		brand = brandService.saveBrand(brand);
+		if (brand != null) {
+			return jsonResponse(brand, 200);
+		}
+		return jsonResponse("Unable to save brand.", 400);
+	}
+
+	public static Result saveBrandRest() {
 		Brand brand = extract(request().body().asFormUrlEncoded());
 		brand = brandService.saveBrand(brand);
 		return jsonResponse("Unable to save brand.", 400);
 	}
-	
+
 	public static Result saveMultipartBrand() {
-		if(request().body().asMultipartFormData().asFormUrlEncoded() != null){
-				Logger.info("not nul-----------");
-		}else{
+		if (request().body().asMultipartFormData().asFormUrlEncoded() != null) {
+			Logger.info("not nul-----------");
+		} else {
 			Logger.info("------------nul-----------");
 		}
-		Brand brand = extract(request().body().asMultipartFormData().asFormUrlEncoded());
+		Brand brand = extract(request().body().asMultipartFormData()
+				.asFormUrlEncoded());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
 			uploadImage(request(), brand.getId());
@@ -69,8 +81,35 @@ public class BrandController extends Application {
 		return false;
 	}
 
+	private static Brand extract(JsonNode json) {
+		Brand brand = new Brand();
+		brand.setName(json.findPath("brand_name") != null ? json.findPath(
+				"brand_name").textValue() : null);
+		brand.setDescription(json.findPath("desc") != null ? json.findPath(
+				"desc").textValue() : null);
+		BrandContactDetails brandContactDetails = new BrandContactDetails();
+		brandContactDetails
+				.setAddressline1(json.findPath("brand_addressline1") != null ? json
+						.findPath("brand_addressline1").textValue() : null);
+		brandContactDetails
+				.setAddressline2(json.findPath("brand_addressline2") != null ? json
+						.findPath("brand_addressline2").textValue() : null);
+		ContactPersonDetails contactPersonDetails = new ContactPersonDetails();
+		contactPersonDetails
+				.setName(json.findPath("brand_contact_name") != null ? json
+						.findPath("brand_contact_name").textValue() : null);
+		contactPersonDetails
+				.setMobile1(json.findPath("brand_contact_number") != null ? json
+						.findPath("brand_contact_number").textValue() : null);
+		List<ContactPersonDetails> cpd = new ArrayList<ContactPersonDetails>();
+		cpd.add(contactPersonDetails);
+		brandContactDetails.setContactPersons(cpd);
+		brand.setBrandContactDetails(brandContactDetails);
+		return brand;
+	}
+
 	private static Brand extract(Map<String, String[]> parameters) {
-		Logger.info("brand_name"+parameters.get("brand_name")[0]);
+		Logger.info("brand_name" + parameters.get("brand_name")[0]);
 		Brand brand = new Brand();
 		brand.setName(parameters.get("brand_name")[0]);
 		brand.setDescription(parameters.get("desc")[0]);
