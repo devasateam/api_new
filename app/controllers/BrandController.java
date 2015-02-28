@@ -1,10 +1,13 @@
 package controllers;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import models.Brand;
 import models.BrandContactDetails;
+import models.ContactPersonDetails;
 import play.i18n.Messages;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -60,8 +63,16 @@ public class BrandController extends Application {
 		brand.setName(parameters.get("barnd_name")[0]);
 		brand.setDescription(parameters.get("desc")[0]);
 		BrandContactDetails brandContactDetails = new BrandContactDetails();
-		brandContactDetails.setAddressline1(parameters.get("brand_addressline1")[0]);
-		brandContactDetails.setAddressline2(parameters.get("brand_addressline2")[0]);
+		brandContactDetails.setAddressline1(parameters
+				.get("brand_addressline1")[0]);
+		brandContactDetails.setAddressline2(parameters
+				.get("brand_addressline2")[0]);
+		ContactPersonDetails contactPersonDetails = new ContactPersonDetails();
+		contactPersonDetails.setName(parameters.get("brand_contact_name")[0]);
+		contactPersonDetails.setMobile1("brand_contact_number");
+		List<ContactPersonDetails> cpd = new ArrayList<ContactPersonDetails>();
+		cpd.add(contactPersonDetails);
+		brandContactDetails.setContactPersons(cpd);
 		brand.setBrandContactDetails(brandContactDetails);
 		return brand;
 	}
