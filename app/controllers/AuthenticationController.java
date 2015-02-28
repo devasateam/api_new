@@ -70,7 +70,6 @@ public class AuthenticationController extends Application {
 				return jsonResponse("failure", 401);
 			}
 		}
-
 		return jsonResponse("failure", 401);
 	}
 
