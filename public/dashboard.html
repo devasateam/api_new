@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="Onliofli">
+	<head>
+		<title>Onliofli</title>	
+		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+		<link rel="stylesheet" type="text/css" href="library/bootstrap-3.3.2-dist/css/bootstrap.css">
+		<script type="text/javascript" src="library/jquery-1.11.2.js"></script>
+		<script type="text/javascript" src="library/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="library/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+		<script type="text/javascript" src="library/angular.js"></script>
+		<script type="text/javascript" src="library/angular-route.js"></script>
+		<script type="text/javascript" src="ngApp/ngRoute/route.js"></script>
+		<script type="text/javascript" src="library/ng-flow-standalone.js"></script>
+		<script type="text/javascript" src="javascripts/main.js"></script>
+		<script type="text/javascript" src="ngApp/ngController/AddBrandController.js"></script>
+		<script type="text/javascript">
+	      (function() {
+	       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	       po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+	       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	     })();
+		</script>
+	</head>
+	<body>
+		<header>
+		</header>
+		<section>
+			<div class="sidebar">
+				<div class="sidebar_outer_container">
+				    <div class="sidebar_holder">
+				        <div class="panel-group" id="leftMenu">
+				            <div class="panel panel-default">
+				                <div class="panel-heading main_heading">
+				                    <a class="sidebar-toggle left_heading" data-toggle="collapse" data-parent="#leftMenu" href="#">
+				                          <i class="icon-home"></i> Dashboard
+				                    </a>
+				                </div>
+				            </div>
+				            
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <a class="sidebar-toggle each_left_sec_title" target="_self" data-toggle="collapse" data-parent="#leftMenu" href="#collapseTwo">
+				                        <i class="icon-th"></i> Brand
+				                    </a>
+				                </div>
+				                <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px; ">
+				                    <div class="panel-body">
+				                     
+				                        <div class="sub_each_section">
+				                            <a href="#/addBrand">Add</a>
+				                        </div><hr>
+				                      
+				                    </div>
+				                </div>
+				                <div class="panel-heading">
+				                    <a class="sidebar-toggle each_left_sec_title" target="_self" data-toggle="collapse" data-parent="#leftMenu" href="#collapseThree">
+				                        <i class="icon-th"></i> Category
+				                    </a>
+				                </div>
+				                <div id="collapseThree" class="panel-collapse collapse" style="height: 0px; ">
+				                    <div class="panel-body">
+				                     
+				                        <div class="sub_each_section">
+				                            <!-- <a href="#/addCatagory">Add</a> -->
+				                        </div><hr>
+				                      
+				                    </div>
+				                </div>
+				            </div>
+				        </div>               
+				    </div>
+				</div><!-- end of sidebar_outer_container -->
+			</div>
+			<div class="content">
+				<div ng-view></div>
+			</div>
+		</section>
+		</section>
+		<footer>
+		</footer>
+		<script>
+			// $('#conf_pass').on('keyup', function () {
+			//     if ($(this).val() === $('#password').val()) {
+			//         $('#message').html('');
+			//         $('#signup #signUpSubmit').removeAttr('disabled');
+			        
+			//     } else{
+			//     	$('#message').html('Password does not match').css('color', 'red');
+			//     	$('#signup #signUpSubmit').attr('disabled','disabled');
+			//     } 
+			// });
+		</script>
+	</body>
+</html>
