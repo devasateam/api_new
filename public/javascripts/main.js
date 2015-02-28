@@ -165,19 +165,19 @@ jQuery(document).ready(function(){
 	        url: '/login?email='+email+'&password='+pass,
 	        dataType: 'JSON',
 	        success: function(result) {
-	        	window.location.href=result
-	        	// if(result.status_code == 200)
-	        	// {
-	        	// 	window.location.href="/dashboard";
-	        	// }
-	        	// else if(result.status_code == 401)
-          //       {
-          //           window.location.href="/login";
-          //       }
-	        	// else
-	        	// {
-	        	// 	alert(result.data.Reason);
-	        	// }
+	        	
+	        	if(result.status_code == 200)
+	        	{
+	        		window.location.href="/dashboard";
+	        	}
+	        	else if(result.status_code == 401)
+                {
+                    window.location.href="/login";
+                }
+	        	else
+	        	{
+	        		alert(result.data.Reason);
+	        	}
 	        }
     	});
  	});
