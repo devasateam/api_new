@@ -5,24 +5,25 @@
 OnliofliApp.controller('AddBrandController', function ($scope, $location, $http) {  
     $scope.AddBrandData = {
         "brand_name" : "",
-        "brand_logo" : "",
         "brand_addressline1" : "",
         "brand_addressline2" : "",
         "brand_contact_name" : "",
         "brand_contact_number" : ""
     };
-    $scope.addbrand = function(){
-        // checking validations
-        // var b = $("form.addProperty").valid();
-        // if(!(b)) {
-        //     return false;
-        // }
+    $scope.addbrand = function(form){
+            $scope.submitted = true;
+
+          // If form is invalid, return and let AngularJS show validation errors.
+          if (form.$invalid) {
+            // bootbox.alert("Please Fill The Required Fields");
+            return;
+        }
         // freeze further action
         console.log('entered');
         jQuery('#overlay').show();
         $http({
             method  : 'POST',
-            url     : '/brand',
+            url     : '/addbrand',
             dataType : 'JSON',
             data    : $scope.AddBrandData
         }).success(function (result){

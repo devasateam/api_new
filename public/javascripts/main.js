@@ -235,9 +235,13 @@ jQuery(document).ready(function(){
 	    });
 	});
 	
-	var height = $( window ).height();
+	var height = $(document).height();
 	$('.sidebar').css('height',height);
 	    
+});
+$(document).click(function() {
+    var height = $(document).height();
+	$('.sidebar').css('height',height);
 });
 
 	 
