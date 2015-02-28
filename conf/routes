@@ -32,7 +32,7 @@ GET     /email/:token               controllers.account.settings.Email.validateE
 GET    	/brands                	controllers.BrandController.getBrands()
 
 #Add Brand providing all the params
-GET   /addbrand			               controllers.BrandController.getBrands()
+GET   /addbrand			               controllers.BrandController.saveBrand()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

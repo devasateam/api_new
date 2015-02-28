@@ -3,13 +3,10 @@ package controllers;
 import models.User;
 import models.account.utils.AppException;
 import play.i18n.Messages;
-import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
 
 import com.accounts.service.AuthenticationService;
 import com.accounts.service.impl.AuthenticationServiceImpl;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 /**
  * @Author Pramod Email:sendpramod@gmail.com
  */
