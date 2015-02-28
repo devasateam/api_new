@@ -33,14 +33,14 @@ public class User {
 	private String passwordHash;
 
 	private boolean validated;
-//
-//	private String provider;
-//
-//	private String token;
-//
-//	private boolean token_expired;
-//
-//	private String user_id;
+
+	private String provider;
+
+	// private String token;
+	//
+	// private boolean token_expired;
+	//
+	// private String user_id;
 
 	public static JacksonDBCollection<User, String> userCollection = MongoDB
 			.getCollection("User", User.class, String.class);
@@ -171,11 +171,16 @@ public class User {
 	 * 
 	 * @param password
 	 *            the password
+	 * @param user
 	 * @throws AppException
 	 *             the app exception
 	 */
-	public void changePassword(String password) throws AppException {
+	public void changePassword(String password, User user) throws AppException {
 		this.passwordHash = Hash.createPassword(password);
+		if (user != null && !StringUtils.isEmpty(user.id)) {
+			user.setPasswordHash(passwordHash);
+			User.userCollection.updateById(user.id, user);
+		}
 	}
 
 	/**

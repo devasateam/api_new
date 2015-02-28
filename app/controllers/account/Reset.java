@@ -149,7 +149,7 @@ public class Reset extends Application {
 			}
 
 			String inputPassword = password;
-			user.changePassword(inputPassword);
+			user.changePassword(inputPassword,user);
 			Logger.info("password changed"+resetToken.getUserId());
 			// Send email saying that the password has just been changed.
 			sendPasswordChanged(user);
