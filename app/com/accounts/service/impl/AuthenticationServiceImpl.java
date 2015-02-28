@@ -1,10 +1,9 @@
 package com.accounts.service.impl;
 
-import com.accounts.service.AuthenticationService;
-
 import models.User;
 import models.account.utils.AppException;
-import play.i18n.Messages;
+
+import com.accounts.service.AuthenticationService;
 
 /**
  * @Author Pramod Email:sendpramod@gmail.com
