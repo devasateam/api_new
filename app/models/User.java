@@ -36,7 +36,7 @@ public class User {
 
 	private String provider;
 
-	// private String token;
+	private String id_token;
 	//
 	// private boolean token_expired;
 	//
@@ -107,6 +107,22 @@ public class User {
 
 	public void setValidated(boolean validated) {
 		this.validated = validated;
+	}
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	public String getId_token() {
+		return id_token;
+	}
+
+	public void setId_token(String id_token) {
+		this.id_token = id_token;
 	}
 
 	/**

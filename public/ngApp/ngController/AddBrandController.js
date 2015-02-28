@@ -12,20 +12,14 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
         "brand_contact_number" : ""
     };
     $scope.addbrand = function(){
+        // checking validations
+        // var b = $("form.addProperty").valid();
+        // if(!(b)) {
+        //     return false;
+        // }
     	
-//        $scope.uploadFile = function(){
-//            $http.post('server.php', $scope.image)
-//            .success(function(res){
-//              alert('View file '+res+'  ?');
-//              $window.location.assign(res);
-//            })
-//          }
-//        console.log('entered');
-//        jQuery('#overlay').show();
-//        $scope.$watch('files', function () {
-//            $scope.upload($scope.files);
-//        });
     	$scope.AddBrandData.brand_logo=$scope.image.base64;
+    	console.log('brand_logo');
     	console.log($scope.AddBrandData.brand_logo);
         $http({
             method  : 'POST',

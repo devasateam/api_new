@@ -7,7 +7,7 @@ function onLoadCallback()
 function login() 
 {
   var myParams = {
-    'clientid' : '217424239173-75719ljeaia9c2mpr27mtlv4trhebs2i.apps.googleusercontent.com', //You need to set client id
+    'clientid' : '19535926278-0o8s4n7sv11aqsn8dn7skg92lag270v4.apps.googleusercontent.com', //You need to set client id
     'cookiepolicy' : 'single_host_origin',
     'callback' : 'loginCallback', //callback function
     'approvalprompt':'force',
@@ -47,10 +47,13 @@ console.log(myParams);
 			    }
 			 	send_email = email;
 			 	full_name = resp['displayName'];
+			 	id_token = result['id_token'];
+			 	provider = "googlePlus";
+			 	console.log("send_email-----"+send_email);
 			    jQuery.ajax({
 			        type: 'POST',
-			        url: '/signup',
-			        data: {email : send_email, fullname : full_name},
+			        url: '/gpsignup?name='+full_name+'&email='+send_email+'&id_token='+id_token+'&provider='+provider,
+//			        data: {email : send_email, fullname : full_name},
 			        dataType: 'JSON',
 			        success: function(result) {
 			        	if(result.status_code == 200)

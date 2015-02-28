@@ -31,7 +31,6 @@ public class TokenDao {
 	}
 
 	private static Token getNewToken(User user, String type, String email) {
-		Logger.info(user + "-------" + type + "-----------" + email);
 		Token token = new Token();
 		token.setToken(UUID.randomUUID().toString());
 		token.setEmail(email);
@@ -55,7 +54,6 @@ public class TokenDao {
 
 	private static void sendMail(User user, String type, String email)
 			throws MalformedURLException {
-		Logger.info(email + "------------------------------");
 		Token token = getNewToken(user, type.toString(), email);
 		String externalServer = Configuration.root().getString(
 				"server.hostname");
