@@ -8,7 +8,8 @@ OnliofliApp.controller('AddBrandController', function ($scope, $location, $http)
         "brand_addressline1" : "",
         "brand_addressline2" : "",
         "brand_contact_name" : "",
-        "brand_contact_number" : ""
+        "brand_contact_number" : "",
+        "brand_logo" : ""
     };
     $scope.addbrand = function(form){
             $scope.submitted = true;

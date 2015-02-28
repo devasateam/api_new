@@ -351,3 +351,6 @@ label.error {
 .upload-img {
 	width: 197px;
 }
+.form-input-row input[type='file'] {
+	border: none;
+}
