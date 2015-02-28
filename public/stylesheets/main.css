@@ -2,6 +2,17 @@ body {
 	font-family: verdana,arial,helvetica,sans-serif !important;
 	font-size: 12px !important;
 }
+/*-----Button-----------*/
+.onliofli-button {
+	background-color: #10AAEE!important;
+	color: #ffffff!important;
+	margin-bottom: 11px!important;
+	font-weight: bold!important;
+	border: none!important;
+	border-radius: 0!important;
+	padding: 10px;
+}
+/*-------------------End of button-----------------*/
 
 .sign-container {
 	width: 600px;
@@ -120,4 +131,173 @@ label.error {
 	color: red;
 	font-size: 10px;
 	display: block;
+}
+/*-------------Sidebar-------------------*/
+.sidebar {
+	background-color: #666;
+	padding-left: 0;
+	padding-right: 0;
+	width:300px;
+	display: inline-block;
+	float: left;
+}
+.sidebar_holder {
+	background: #666 ;
+	color: #fff ;
+	text-transform: uppercase;
+	font-size: 14px ;
+	font-family: Raleway-Bold;
+	margin-top: 0px;
+}
+.sub_left_section {
+	display: none;
+}
+.sub_each_section {
+
+	background: #454545 ;
+	/*padding: 15px 50px ;*/
+	font-size: 13px ;
+	font-family: Raleway-Medium ;
+	border-left: solid 10px transparent  ;
+	cursor: pointer;
+	color: #fff;
+}
+.sub_each_section a {
+	padding: 15px 50px ;
+}
+
+.sub_each_section_active {
+	border-left: solid 10px #70e3cd ;
+
+}
+.left_heading {
+
+}
+.each_left_sec_title {
+	padding: 18px 50px ;
+	/*border-top: solid 1px #4f4f4f ;*/
+	cursor: pointer;
+	border-left: solid 10px transparent  ;
+}
+.each_left_sec_active .each_left_sec_title {
+	background:  #70e3cd ;
+	color: #454545 ;
+}
+#leftMenu .panel.panel-default {
+    margin-bottom: 0px;
+    border:0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    text-transform: uppercase;
+}    
+
+#leftMenu .panel-heading {
+    border-top: 1px solid #717171; /* inner stroke */
+    border-bottom: 1px solid #5A5A5A; 
+    list-style-type:none;
+    background-color: #666; 
+}  
+
+#leftMenu  .panel_panel_default_active .panel-heading .each_left_sec_title ,
+#leftMenu  .panel_panel_default_active .panel-heading .each_left_sec_title:hover {
+	  background-color: #70e3cd;
+	  color: #454545 ;
+}
+.main_heading {
+	font-size: 33px ;
+	text-align: center;
+	font-family: Raleway-SemiBold;
+	
+}
+.panel_panel_default_active .panel-heading {
+	background: #70e3cd ;
+}
+#leftMenu .panel-heading  a:hover{  
+    color:#ccc     
+}
+
+#leftMenu  .panel_panel_default_active  .panel-heading a:hover {
+	color: #fff ;
+}
+.panel-heading.main_heading .sidebar-toggle {
+	padding: 25px 0 ;
+}
+#leftMenu .panel-heading.main_heading a:hover {
+	color: #fff ;
+	cursor: default;
+}
+#leftMenu .panel-heading  a{  
+    color: #fff; /* text color */
+    text-decoration:none;
+    font-family: Raleway-Bold;
+}
+#leftMenu .panel-heading .active {
+    width: 182px;
+    height: 34px;
+    border: 1px solid #5b5b5b; /* inner stroke */
+    background-color: #666; /* layer fill content */
+
+}
+.panel-heading .sidebar-toggle {
+	display: block;
+	/*padding: 18px 46px;*/
+}
+.sidebar-toggle {
+	cursor: pointer;
+}
+.panel-body hr {
+	margin: 0px ;
+	border-color: #4f4f4f ;
+}
+.panel-group .panel + .panel {
+ 	margin-top: 0px; 
+}
+.panel-heading {
+	padding: 0 !important; 
+	border-top-left-radius: 0; 
+	border-top-right-radius: 0; 
+}
+.panel-body {
+	padding: 0!important; 
+}
+.panel-group .panel-heading + .panel-collapse > .panel-body {
+	border-top: none; 
+	border-top-color: #454545 !important;
+}
+.panel.panel-default {
+	margin-top: 0!important;
+}
+.sub_each_section a {
+	color: #FFFFFF;
+	display: block;
+	text-decoration: none;
+}
+.sub_each_section a:hover,
+.sub_each_section a:focus {
+	color: #ffffff;
+	text-decoration: none;
+}
+/*------------Add Brand---------------*/
+
+.content {
+	display: inline-block;
+	padding: 0 40px;
+}
+
+/*.form-input-row label{
+	width: 147px;
+}*/
+.form-input-row input,
+.form-input-row textarea{
+	height: 40px;
+	border: 1px #787878 solid;
+	padding: 0 16px;
+	margin-right: 5px;
+	margin-bottom: 11px;
+	width: 197px;
+	padding: 10px 16px;
+}
+.upload-img {
+	width: 197px;
 }
