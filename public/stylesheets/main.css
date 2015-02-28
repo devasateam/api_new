@@ -79,6 +79,7 @@ body {
 	width: 180px;
 	margin-bottom: 10px;
 	border: 1px solid #BCE5F8;
+	padding: 0 5px;
 }
 .sign-container input[type=button] {
 	background-color: #10AAEE;
