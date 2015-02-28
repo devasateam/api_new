@@ -55,13 +55,15 @@ label.error {
 	margin: 8px;
 }*/
 .sign-container,
+.forgotPass-container,
 .resetPass-container{
 	width: 600px;
 	display: inline-block;
 	text-align: right;
 	height: auto;
 }
-.resetPass-container {
+.resetPass-container,
+.forgotPass-container {
 	width: 350px;
 }
 .side-block {
@@ -100,7 +102,8 @@ label.error {
 	left: -6px;
 }
 .sign-in,
-.reset-password {
+.reset-password,
+.forgot-password {
 	border: 1px solid #BCE5F8;
 	padding: 10px;
 	margin-bottom: 50px;
@@ -132,7 +135,8 @@ label.error {
 	font-weight: bold;
 }*/
 .sign-container input,
-.resetPass-container input {
+.resetPass-container input,
+.forgotPass-container input {
 	width: 180px;
 	margin-bottom: 10px;
 	border: 1px solid #BCE5F8;
@@ -147,7 +151,8 @@ label.error {
 	font-weight: bold;
 }
 .sign-title,
-.reset-title {
+.reset-title,
+.forgot-title {
 	background: yellow;
 	background: -webkit-linear-gradient(#BCE5F8, #10AAEE); /* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(#BCE5F8, #10AAEE); /* For Opera 11.1 to 12.0 */
@@ -161,7 +166,8 @@ label.error {
 }
 .sign-container #signInSubmit,
 .sign-container #signUpSubmit,
-.resetPass-container #resetPassSubmit{
+.forgotPass-container #forgotPassSubmit,
+.resetPass-container #resetConfPassSubmit{
 	cursor: pointer;
 	background-color: #10AAEE;
 	border-radius: 5px;

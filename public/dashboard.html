@@ -2,17 +2,23 @@
 <html ng-app="Onliofli">
 	<head>
 		<title>Onliofli</title>	
-		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+		
 		<link rel="stylesheet" type="text/css" href="library/bootstrap-3.3.2-dist/css/bootstrap.css">
+
+		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+
 		<script type="text/javascript" src="library/jquery-1.11.2.js"></script>
-		<script type="text/javascript" src="library/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="library/bootstrap-3.3.2-dist/js/bootstrap.js"></script>
+		<script type="text/javascript" src="library/bootbox.js"></script>
+		<script type="text/javascript" src="library/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="library/angular.js"></script>
 		<script type="text/javascript" src="library/angular-route.js"></script>
-		<script type="text/javascript" src="ngApp/ngRoute/route.js"></script>
 		<script type="text/javascript" src="library/ng-flow-standalone.js"></script>
+
 		<script type="text/javascript" src="javascripts/main.js"></script>
+		<script type="text/javascript" src="ngApp/ngRoute/route.js"></script>
 		<script type="text/javascript" src="ngApp/ngController/AddBrandController.js"></script>
+		<script type="text/javascript" src="ngApp/ngController/DashboardController.js"></script>
 		<script type="text/javascript">
 	      (function() {
 	       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
@@ -21,7 +27,7 @@
 	     })();
 		</script>
 	</head>
-	<body>
+	<body ng-controller="DashboardController">
 		<div class="overlay"></div>
 		<header>
 			<div class="logo"></div>

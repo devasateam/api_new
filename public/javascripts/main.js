@@ -211,9 +211,9 @@ jQuery(document).ready(function(){
 	        }
 	    });
 	});
-	$("form#resetPass").submit(function(e){
+	$("form#forgotPass").submit(function(e){
 		e.preventDefault();
-		var b = $("form#resetPass").valid();
+		var b = $("form#forgotPass").valid();
 		if(!(b)) {
             return false;
         }
@@ -225,7 +225,35 @@ jQuery(document).ready(function(){
 	        	console.log(result);
 	           if(result.status_code == 200)
 	        	{
-	        		window.location.href="/signin.html";
+	        		bootbox.alert("Reset password Link sent in email !!", function() {
+	                  window.location.href="/signin.html";
+	                });
+	        	}
+	        	else
+	        	{
+	        		alert(result.data.Reason);
+	        	}
+	        }
+	    });
+	});
+
+	$("form#resetPass").submit(function(e){
+		e.preventDefault();
+		var b = $("form#resetPass").valid();
+		if(!(b)) {
+            return false;
+        }
+		var email = $('#email').val();
+	    jQuery.ajax({
+	        url: '/updatepass?password='+password,
+	        type: 'POST',
+	        success: function (result) {
+	        	console.log(result);
+	           if(result.status_code == 200)
+	        	{
+	        		bootbox.alert("Password has been reset !!", function() {
+	                  window.location.href="/signin.html";
+	                });
 	        	}
 	        	else
 	        	{
