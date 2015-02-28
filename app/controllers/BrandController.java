@@ -20,7 +20,13 @@ public class BrandController extends Application {
 	private static BrandService brandService = new BrandServiceImpl();
 
 	public static Result saveBrand() {
-		Brand brand = extract(request());
+		Brand brand = extract(request().body().asFormUrlEncoded());
+		brand = brandService.saveBrand(brand);
+		return jsonResponse("Unable to save brand.", 400);
+	}
+	
+	public static Result saveMultipartBrand() {
+		Brand brand = extract(request().body().asMultipartFormData().asFormUrlEncoded());
 		brand = brandService.saveBrand(brand);
 		if (brand != null) {
 			uploadImage(request(), brand.getId());
@@ -54,9 +60,8 @@ public class BrandController extends Application {
 		return false;
 	}
 
-	private static Brand extract(Request request) {
+	private static Brand extract(Map<String, String[]> parameters) {
 		Brand brand = new Brand();
-		Map<String, String[]> parameters = request.body().asFormUrlEncoded();
 		brand.setName(parameters.get("name")[0]);
 		brand.setDescription(parameters.get("desc")[0]);
 		BrandContactDetails brandContactDetails = new BrandContactDetails();
