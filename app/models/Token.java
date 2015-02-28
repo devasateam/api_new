@@ -21,22 +21,62 @@ public class Token {
 
 	@Id
 	@ObjectId
-	public String id;
+	private String id;
 
 	@Required
-	public String token;
+	private String token;
 
 	@Required
-	public String userId;
+	private String userId;
 
 	@Required
-	public String type;
+	private String type;
 
 	@Required
-	public Long dateCreation;
+	private Long dateCreation;
 
 	@Required
-	public String email;
+	private String email;
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Long getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(Long dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@JsonIgnore
 	public boolean isExpired() {

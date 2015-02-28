@@ -2,12 +2,7 @@ package models;
 
 import java.util.List;
 
-import net.vz.mongodb.jackson.Id;
-import net.vz.mongodb.jackson.ObjectId;
-
 public class BrandContactDetails {
-	@Id
-	@ObjectId
 	private String id;
 	private String addressline1;
 	private String addressline2;

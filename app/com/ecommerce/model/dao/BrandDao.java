@@ -12,14 +12,14 @@ import play.modules.mongodb.jackson.MongoDB;
  */
 public class BrandDao {
 	private static JacksonDBCollection<Brand, String> coll = MongoDB
-			.getCollection("Attributes", Brand.class, String.class);
+			.getCollection("Brands", Brand.class, String.class);
 
 	public static List<Brand> all() {
 		return coll.find().toArray();
 	}
 
 	public static Brand create(Brand attribute) {
-		WriteResult<Brand, String> result= coll.save(attribute);
+		WriteResult<Brand, String> result = coll.save(attribute);
 		return result.getSavedObject();
 	}
 

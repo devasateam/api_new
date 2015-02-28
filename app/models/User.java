@@ -20,21 +20,27 @@ public class User {
 
 	@Id
 	@ObjectId
-	public String id;
+	private String id;
 
 	@Required
-	public String email;
+	private String email;
 
 	@Required
-	public String fullname;
+	private String fullname;
 
-	@Required
-	public String confirmationToken;
+	private String confirmationToken;
 
-	@Required
-	public String passwordHash;
+	private String passwordHash;
 
-	public boolean validated;
+	private boolean validated;
+
+	private String provider;
+
+	// private String token;
+	//
+	// private boolean token_expired;
+	//
+	// private String user_id;
 
 	public static JacksonDBCollection<User, String> userCollection = MongoDB
 			.getCollection("User", User.class, String.class);
@@ -83,7 +89,6 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 
-
 	/**
 	 * Retrieve a user from a fullname.
 	 * 
@@ -96,6 +101,14 @@ public class User {
 				"fullname", fullname));
 	}
 
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+
 	/**
 	 * Retrieves a user from a confirmation token.
 	 * 
@@ -104,8 +117,8 @@ public class User {
 	 * @return a user if the confirmation token is found, null otherwise.
 	 */
 	public static User findByConfirmationToken(String token) {
-		return User.userCollection.findOne(new BasicDBObject().append("confirmationToken",
-				token));
+		return User.userCollection.findOne(new BasicDBObject().append(
+				"confirmationToken", token));
 	}
 
 	/**
@@ -128,8 +141,7 @@ public class User {
 	 * @return the user
 	 */
 	public static User findById(String id) {
-		return User.userCollection
-				.findOne(new BasicDBObject().append("id", id));
+		return User.userCollection.findOneById(id);
 	}
 
 	/**
@@ -159,11 +171,16 @@ public class User {
 	 * 
 	 * @param password
 	 *            the password
+	 * @param user
 	 * @throws AppException
 	 *             the app exception
 	 */
-	public void changePassword(String password) throws AppException {
+	public void changePassword(String password, User user) throws AppException {
 		this.passwordHash = Hash.createPassword(password);
+		if (user != null && !StringUtils.isEmpty(user.id)) {
+			user.setPasswordHash(passwordHash);
+			User.userCollection.updateById(user.id, user);
+		}
 	}
 
 	/**

@@ -40,7 +40,7 @@ public class Email extends Application {
 	public static Result runEmail() {
 		User user = User.findByEmail(request().username());
 		try {
-			String mail = user.email;
+			String mail = user.getEmail();
 			TokenDao.sendMailChangeMail(user, mail);
 			flash("success", Messages.get("changemail.mailsent"));
 			return jsonResponse(Messages.get("changemail.mailsent"), 200);
@@ -62,31 +62,31 @@ public class Email extends Application {
 
 		if (token == null) {
 			flash("error", Messages.get("error.technical"));
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
 
 		Token resetToken = TokenDao.findByTokenAndType(token, "email");
 		if (resetToken == null) {
 			flash("error", Messages.get("error.technical"));
-			return jsonResponse(Messages.get("error.technical"), 200);
+			return jsonResponse(Messages.get("error.technical"), 400);
 		}
 
 		if (resetToken.isExpired()) {
 			TokenDao.delete(resetToken);
 			flash("error", Messages.get("error.expiredmaillink"));
-			return jsonResponse(Messages.get("error.expiredmaillink"), 200);
+			return jsonResponse(Messages.get("error.expiredmaillink"), 400);
 		}
 
-		user.email = resetToken.email;
+		user.setEmail(resetToken.getEmail()); 
 		User.update(user);
 
-		session("email", resetToken.email);
+		session("email", resetToken.getEmail());
 
 		flash("success",
-				Messages.get("account.settings.email.successful", user.email));
+				Messages.get("account.settings.email.successful", user.getEmail()));
 
 		return jsonResponse(
-				Messages.get(user.email + "ccount.settings.email.successful"),
+				Messages.get(user.getEmail() + "ccount.settings.email.successful"),
 				200);
 	}
 }
