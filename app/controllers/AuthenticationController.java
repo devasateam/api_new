@@ -50,7 +50,6 @@ public class AuthenticationController extends Application {
 	public static Result authCheck() {
 		// Check that the email matches a confirmed user before we redirect
 		String email = ctx().session().get("email");
-		Logger.info("email-----------"+email);
 		if (email != null) {
 			User user = User.findByEmail(email);
 			if (user != null && user.isValidated()) {
