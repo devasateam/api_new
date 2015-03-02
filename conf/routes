@@ -43,5 +43,8 @@ POST   /saveBrandImage	                  controllers.BrandController.saveImage(f
 
 POST   /saveMultipartBrand				  controllers.BrandController.saveMultipartBrand()
 
+
+#Update Brand providing the json where id is mandatory
+POST   /updatebrand						  controllers.BrandController.updateBrandJson()
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

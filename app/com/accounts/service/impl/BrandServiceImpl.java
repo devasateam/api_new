@@ -8,13 +8,16 @@ import models.Brand;
 import com.accounts.service.BrandService;
 import com.ecommerce.model.dao.BrandDao;
 
-public class BrandServiceImpl implements
-		BrandService {
+public class BrandServiceImpl implements BrandService {
 
 	@Override
 	public Brand saveBrand(Brand attribute) {
-		Logger.info(attribute.getName()+"----------"+attribute.getBrandContactDetails().getPincode()+"--------");
 		return BrandDao.create(attribute);
+	}
+
+	@Override
+	public Brand updateBrand(Brand attribute) {
+		return BrandDao.update(attribute);
 	}
 
 	@Override

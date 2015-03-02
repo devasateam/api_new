@@ -2,6 +2,8 @@ package com.ecommerce.model.dao;
 
 import java.util.List;
 
+import com.mongodb.BasicDBObject;
+
 import models.Brand;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.WriteResult;
@@ -19,7 +21,17 @@ public class BrandDao {
 	}
 
 	public static Brand create(Brand attribute) {
-		WriteResult<Brand, String> result = coll.save(attribute);
+		if(exist(attribute.getName())){
+			WriteResult<Brand, String> result = coll.save(attribute);
+			return result.getSavedObject();
+		}else {
+			return null;
+		}
+	}
+
+	public static Brand update(Brand attribute) {
+		WriteResult<Brand, String> result = coll.updateById(attribute.getId(),
+				attribute);
 		return result.getSavedObject();
 	}
 
@@ -27,5 +39,10 @@ public class BrandDao {
 		Brand attribute = coll.findOneById(id);
 		if (attribute != null)
 			coll.remove(attribute);
+	}
+
+	private static boolean exist(String name) {
+		return coll.findOne(new BasicDBObject().append("name", name)) != null ? true
+				: false;
 	}
 }

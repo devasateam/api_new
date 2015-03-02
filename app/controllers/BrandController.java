@@ -41,6 +41,18 @@ public class BrandController extends Application {
 			uploadImageFromBase64(request().body().asJson(), brand.getId());
 			return jsonResponse(brand, 200);
 		}
+		return jsonResponse("Unable to save brand either due to duplicate entry or some technical error!!!", 400);
+	}
+
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result updateBrandJson() {
+		Brand brand = extract(request().body().asJson());
+		brand = brandService.updateBrand(brand);
+		if (brand != null) {
+			Logger.info("Moving to save image step 2");
+			uploadImageFromBase64(request().body().asJson(), brand.getId());
+			return jsonResponse(brand, 200);
+		}
 		return jsonResponse("Unable to save brand.", 400);
 	}
 
@@ -52,12 +64,13 @@ public class BrandController extends Application {
 
 	public static Result saveMultipartBrand() {
 		if (request().body().asMultipartFormData().asFormUrlEncoded() != null) {
-		Brand brand = extract(request().body().asMultipartFormData().asFormUrlEncoded());
-		brand = brandService.saveBrand(brand);
-		if (brand != null) {
-			uploadImage(request(), brand.getId());
-			return jsonResponse(brand, 200);
-		}
+			Brand brand = extract(request().body().asMultipartFormData()
+					.asFormUrlEncoded());
+			brand = brandService.saveBrand(brand);
+			if (brand != null) {
+				uploadImage(request(), brand.getId());
+				return jsonResponse(brand, 200);
+			}
 		}
 		return jsonResponse("Unable to save brand.", 400);
 	}
@@ -79,7 +92,8 @@ public class BrandController extends Application {
 			FilePart picture = body.getFile("brandimg");
 			if (picture != null) {
 				File file = picture.getFile();
-				file.renameTo(new File(Messages.get("brand.images") + "\\"+ fileName + ".jpg"));
+				file.renameTo(new File(Messages.get("brand.images") + "\\"
+						+ fileName + ".jpg"));
 				return true;
 			}
 		}
@@ -87,18 +101,21 @@ public class BrandController extends Application {
 	}
 
 	public static boolean uploadImageFromBase64(JsonNode json, String fileName) {
-		String encodedString = json.findPath("brand_logo") != null ? json.findPath("brand_logo").textValue() : null;
+		String encodedString = json.findPath("brand_logo") != null ? json
+				.findPath("brand_logo").textValue() : null;
 		if (encodedString != null && !encodedString.isEmpty()) {
-			String filePath = UploadFilePathFactory.brandUploadPath() + fileName;
-			return (FileUploaderUtil.uploadImageFromBase64(encodedString,filePath,fileName+".jpg"));
+			String filePath = UploadFilePathFactory.brandUploadPath()
+					+ fileName;
+			return (FileUploaderUtil.uploadImageFromBase64(encodedString,
+					filePath, fileName + ".jpg"));
 		}
 		return false;
 	}
 
 	private static Brand extract(JsonNode json) {
 		Brand brand = new Brand();
-		brand.setName(json.findPath("brand_name") != null ? json.findPath(
-				"brand_name").textValue() : null);
+		brand.setName(json.findPath("brand_name") != null ? toStoreFriendly(json
+				.findPath("brand_name").textValue()) : null);
 		brand.setDescription(json.findPath("desc") != null ? json.findPath(
 				"desc").textValue() : null);
 		BrandContactDetails brandContactDetails = new BrandContactDetails();
@@ -120,6 +137,13 @@ public class BrandController extends Application {
 		brandContactDetails.setContactPersons(cpd);
 		brand.setBrandContactDetails(brandContactDetails);
 		return brand;
+	}
+
+	private static String toStoreFriendly(String name) {
+		if (name.length() > 0)
+			return name.substring(0, 1).toUpperCase() + name.substring(1);
+		else
+			return null;
 	}
 
 	private static Brand extract(Map<String, String[]> parameters) {
