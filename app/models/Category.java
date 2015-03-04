@@ -23,7 +23,7 @@ public class Category {
 
 	private User createdBy;
 
-	private Category parentCategory;
+	private String parentCategoryId;
 
 	public String description;
 
@@ -75,12 +75,12 @@ public class Category {
 		this.createdBy = createdBy;
 	}
 
-	public Category getParentCategory() {
-		return parentCategory;
+	public String getParentCategoryId() {
+		return parentCategoryId;
 	}
 
-	public void setParentCategory(Category parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
 	}
 
 }

@@ -34,6 +34,7 @@ POST    /askresetpassword		 controllers.account.Reset.runAsk(email:String)
 #After Registration Validation confirmation link sent to the user
 GET     /email/:token               controllers.account.settings.Email.validateEmail(token:String)
 
+#################################BRANDS#####################################
 #Get all List of Brands
 GET    	/brands                	controllers.BrandController.getBrands()
 
@@ -43,8 +44,18 @@ POST   /saveBrandImage	                  controllers.BrandController.saveImage(f
 
 POST   /saveMultipartBrand				  controllers.BrandController.saveMultipartBrand()
 
-
 #Update Brand providing the json where id is mandatory
 POST   /updatebrand						  controllers.BrandController.updateBrandJson()
+
+##################################Category####################################
+#Get all list of Category
+GET     /categories				controllers.CategoryController.getCategory()
+
+#Add Catgory params(category_name,parent_category_name,desc)
+POST    /addcategory			controllers.CategoryController.saveCategory()
+
+#Update Category
+POST   /updatecategory						  controllers.CategoryController.updateCategory()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
