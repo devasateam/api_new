@@ -7,6 +7,9 @@ import models.Category;
 import com.accounts.service.CategoryService;
 import com.ecommerce.model.dao.CategoryDao;
 
+/**
+ * @author samir
+ */
 public class CategoryServiceImpl implements CategoryService {
 
 	@Override

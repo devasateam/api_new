@@ -2,16 +2,15 @@ package com.ecommerce.model.dao;
 
 import java.util.List;
 
-import com.mongodb.BasicDBObject;
-
-import models.Brand;
 import models.Category;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.WriteResult;
 import play.modules.mongodb.jackson.MongoDB;
 
+import com.mongodb.BasicDBObject;
+
 /**
- * @Author Pramod Email:sendpramod@gmail.com
+ * @author samir
  */
 public class CategoryDao {
 	private static JacksonDBCollection<Category, String> coll = MongoDB

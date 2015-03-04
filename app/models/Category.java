@@ -7,7 +7,7 @@ import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
 /**
- * @Author Pramod Email:sendpramod@gmail.com
+ * @author samir
  */
 public class Category {
 	@Id

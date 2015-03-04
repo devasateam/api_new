@@ -52,10 +52,10 @@ POST   /updatebrand						  controllers.BrandController.updateBrandJson()
 GET     /categories				controllers.CategoryController.getCategory()
 
 #Add Catgory params(category_name,parent_category_name,desc)
-POST    /addcategory			controllers.CategoryController.saveCategory()
+POST    /addcategory			controllers.CategoryController.saveCategoryJson()
 
 #Update Category
-POST   /updatecategory						  controllers.CategoryController.updateCategory()
+POST   /updatecategory						  controllers.CategoryController.updateCategoryJson()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)
